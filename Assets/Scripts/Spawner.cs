@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     public int minDistance = 100;
     public int maxDistance = 400;
     public int maxThingCount = 50;
+    public int maxStartSpeed = 20;
+    public int maxStartRotation = 1;
     public List<GameObject> spawnables = new List<GameObject>();
     public GameObject starPrefab;
     public int maxStarCount = 100;
@@ -58,6 +60,10 @@ public class Spawner : MonoBehaviour
         currentThingCount++;
         int index = Random.Range(0, spawnables.Count);
         GameObject go = Instantiate(spawnables[index], spawnsParent);
+        Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
+        Vector2 force = new Vector2(Random.Range(-maxStartSpeed, maxStartSpeed), Random.Range(-maxStartSpeed, maxStartSpeed));
+        rb.AddForce(force);
+        rb.AddTorque(Random.Range(-maxStartRotation, maxStartRotation));
         MoveToCircle(go);
     }
 
@@ -66,7 +72,10 @@ public class Spawner : MonoBehaviour
         float randomAngle = Random.Range(0f, Mathf.PI * 2f);
         Vector2 pos = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized;
         pos *= Random.Range(minDistance, maxDistance + 1);
-        pos += (Vector2)player.transform.position;
+        if (isPlayerAlive)
+        {
+            pos += (Vector2)player.transform.position; 
+        }
         go.transform.position = pos;
     }
 

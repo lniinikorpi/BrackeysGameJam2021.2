@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     Rigidbody2D _rb;
     PointEffector2D _pointEffector;
-    public ParticleSystem particleSystem;
+    public ParticleSystem mainMotorParticles;
+    public ParticleSystem rightMotorParticles;
+    public ParticleSystem leftMotorParticles;
     [Header("Stats")]
     public float speed = 10;
     public float turnSpeed = 10;
@@ -36,11 +38,24 @@ public class PlayerMovement : MonoBehaviour
         }
         if(_movement.y != 0)
         {
-            particleSystem.Play();
+            mainMotorParticles.Play();
         }
         else
         {
-            particleSystem.Stop();
+            mainMotorParticles.Stop();
+        }
+        if(_movement.x > 0)
+        {
+            leftMotorParticles.Play();
+        }
+        else if(_movement.x < 0)
+        {
+            rightMotorParticles.Play();
+        }
+        else
+        {
+            leftMotorParticles.Stop();
+            rightMotorParticles.Stop();
         }
     }
 
