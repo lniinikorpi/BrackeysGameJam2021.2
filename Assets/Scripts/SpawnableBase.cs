@@ -13,9 +13,12 @@ public class SpawnableBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, Spawner.instance.player.transform.position) > Spawner.instance.maxDistance)
+        if (Spawner.instance.isPlayerAlive)
         {
-            DestroyObject();
+            if (Vector2.Distance(transform.position, Spawner.instance.player.transform.position) > Spawner.instance.maxDistance)
+            {
+                DestroyObject();
+            } 
         }
     }
 

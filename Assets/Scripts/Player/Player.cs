@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
         {
             _currentHealth = 0;
             print("Game over");
+            Spawner.instance.isPlayerAlive = false;
             Destroy(gameObject);
         }
         print("oof " + _currentHealth);

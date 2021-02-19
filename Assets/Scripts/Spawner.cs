@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
     public int currentThingCount;
     public GameObject player;
     public Transform spawnsParent;
+    public bool isPlayerAlive = true;
     float _canSpawn;
 
     private void Awake()
