@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
     public int maxHealth = 100;
     public int humansCollected;
     public float gravityPerHuman = .5f;
+    public Animator anim;
+    public AudioSource audioSource;
+    public AudioClip hitClip;
+    public AudioClip humanHitClip;
+    public GameObject shield;
     int _currentHealth;
     Rigidbody2D _rb;
     PointEffector2D _pointEffector2D;
@@ -18,6 +23,8 @@ public class Player : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _pointEffector2D = GetComponentInChildren<PointEffector2D>();
+        shield.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        shield.GetComponent<CircleCollider2D>().enabled = false;
     }
     void Start()
     {
@@ -31,11 +38,16 @@ public class Player : MonoBehaviour
         {
             ReduceShield();
         }
+        float msec = Time.deltaTime * 1000.0f;
+        float fps = 1.0f / Time.deltaTime;
+        print(fps);
     }
 
     public void TakeHit(int value)
     {
-        if(isShieldActive)
+        audioSource.clip = hitClip;
+        audioSource.Play();
+        if (isShieldActive)
         {
             return;
         }
@@ -52,6 +64,8 @@ public class Player : MonoBehaviour
 
     public void TakeHumans(int value)
     {
+        audioSource.clip = humanHitClip;
+        audioSource.Play();
         humansCollected += value;
         _pointEffector2D.forceMagnitude -= gravityPerHuman * value;
         print("yay");
@@ -74,11 +88,12 @@ public class Player : MonoBehaviour
     {
         if(!isShieldActive)
         {
-            //Spawn shield
+            anim.SetBool("ShieldOn", true);
         }
         _shieldMaxTime = pu.shieldTime;
         _shieldTimer = _shieldMaxTime;
         isShieldActive = true;
+        shield.GetComponent<CircleCollider2D>().enabled = true;
     }
 
     void ReduceShield()
@@ -88,10 +103,10 @@ public class Player : MonoBehaviour
         {
             _shieldTimer = 0;
             isShieldActive = false;
-            //DespawnShield
+            anim.SetBool("ShieldOn", false);
+            shield.GetComponent<CircleCollider2D>().enabled = false;
         }
         float percentage = _shieldTimer / _shieldMaxTime;
         UIManagerGame.instance.UpdateShieldSlider(percentage);
-
     }
 }

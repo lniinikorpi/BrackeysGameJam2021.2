@@ -28,7 +28,7 @@ public class PowerUp : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().PickPowerUp(this);
+            Spawner.instance.player.GetComponent<Player>().PickPowerUp(this);
             Spawner.instance.currentPowerUpCount--;
             Destroy(gameObject);
         }

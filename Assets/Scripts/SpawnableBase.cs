@@ -5,17 +5,18 @@ using UnityEngine;
 public class SpawnableBase : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Player player;
 
     // Update is called once per frame
     void Update()
     {
+        if(player == null && Spawner.instance.isPlayerAlive)
+        {
+            player = Spawner.instance.player.GetComponent<Player>();
+        }
         if (Spawner.instance.isPlayerAlive)
         {
-            if (Vector2.Distance(transform.position, Spawner.instance.player.transform.position) > Spawner.instance.maxDistance)
+            if (Vector2.Distance(transform.position, player.gameObject.transform.position) > Spawner.instance.maxDistance)
             {
                 DestroyObject();
             } 

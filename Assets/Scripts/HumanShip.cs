@@ -18,7 +18,7 @@ public class HumanShip : SpawnableBase
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.collider.GetComponent<Player>().TakeHumans(_humanCount);
+            player.TakeHumans(_humanCount);
             GameObject go = Instantiate(collisionParticles);
             go.transform.position = collision.GetContact(0).point;
             DestroyObject();
