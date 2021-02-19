@@ -167,3 +167,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHumanCount: 100
   minHumanCount: 20
+  collisionParticles: {fileID: 5913665146559866860, guid: ae6e52e1079ce5546a03bc5c9778dcac, type: 3}

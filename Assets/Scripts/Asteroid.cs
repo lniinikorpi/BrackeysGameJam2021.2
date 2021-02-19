@@ -8,6 +8,7 @@ public class Asteroid : SpawnableBase
     public int minMass = 50;
     Rigidbody2D _rb;
     Vector2 _startScale;
+    public GameObject collisionParticles;
 
     private void Awake()
     {
@@ -24,6 +25,8 @@ public class Asteroid : SpawnableBase
         if(collision.collider.CompareTag("Player"))
         {
             collision.collider.GetComponent<Player>().TakeHit((int)_rb.mass/10);
+            GameObject go = Instantiate(collisionParticles);
+            go.transform.position = collision.GetContact(0).point;
             DestroyObject();
         }
     }

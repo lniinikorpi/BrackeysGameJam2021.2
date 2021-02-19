@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem mainMotorParticles;
     public ParticleSystem rightMotorParticles;
     public ParticleSystem leftMotorParticles;
+    public GameObject mainMotorFire;
+    public GameObject rightMotorFire;
+    public GameObject leftMotorFire;
     [Header("Stats")]
     public float speed = 10;
     public float turnSpeed = 10;
@@ -21,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _pointEffector = GetComponent<PointEffector2D>();
+        mainMotorFire.SetActive(false);
+        rightMotorFire.SetActive(false);
+        leftMotorFire.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,23 +45,29 @@ public class PlayerMovement : MonoBehaviour
         if(_movement.y != 0)
         {
             mainMotorParticles.Play();
+            mainMotorFire.SetActive(true);
         }
         else
         {
             mainMotorParticles.Stop();
+            mainMotorFire.SetActive(false);
         }
         if(_movement.x > 0)
         {
             leftMotorParticles.Play();
+            leftMotorFire.SetActive(true);
         }
         else if(_movement.x < 0)
         {
             rightMotorParticles.Play();
+            rightMotorFire.SetActive(true);
         }
         else
         {
             leftMotorParticles.Stop();
             rightMotorParticles.Stop();
+            rightMotorFire.SetActive(false);
+            leftMotorFire.SetActive(false);
         }
     }
 

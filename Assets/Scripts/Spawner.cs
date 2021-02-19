@@ -5,18 +5,24 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public static Spawner instance = null;
+    [Header("Stats")]
     public int minDistance = 100;
     public int maxDistance = 400;
     public int maxThingCount = 50;
     public int maxStartSpeed = 20;
     public int maxStartRotation = 1;
+    public int maxStarCount = 100;
+    public int maxPowerUpCount = 10;
+    [Header("References")]
     public List<GameObject> spawnables = new List<GameObject>();
     public GameObject starPrefab;
-    public int maxStarCount = 100;
+    public GameObject powerUp;
     [HideInInspector]
     public int currentThingCount;
     [HideInInspector]
     public int currentStarCount = 10;
+    [HideInInspector]
+    public int currentPowerUpCount;
     public GameObject player;
     public Transform spawnsParent;
     public Transform starsParent;
@@ -47,24 +53,30 @@ public class Spawner : MonoBehaviour
         {
             SpawnThing();
             SpawnStar();
-            _canSpawn = Time.time + .2f;
+            SpawnPowerUp();
+            _canSpawn = Time.time + .01f;
         }
     }
 
     void SpawnThing()
     {
-        if(currentThingCount >= maxThingCount)
+        if (currentThingCount >= maxThingCount)
         {
             return;
         }
         currentThingCount++;
         int index = Random.Range(0, spawnables.Count);
         GameObject go = Instantiate(spawnables[index], spawnsParent);
+        AddForces(go);
+        MoveToCircle(go);
+    }
+
+    private void AddForces(GameObject go)
+    {
         Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
         Vector2 force = new Vector2(Random.Range(-maxStartSpeed, maxStartSpeed), Random.Range(-maxStartSpeed, maxStartSpeed));
         rb.AddForce(force);
         rb.AddTorque(Random.Range(-maxStartRotation, maxStartRotation));
-        MoveToCircle(go);
     }
 
     void MoveToCircle(GameObject go)
@@ -87,6 +99,21 @@ public class Spawner : MonoBehaviour
         }
         currentStarCount++;
         GameObject go = Instantiate(starPrefab, starsParent);
+        MoveToCircle(go);
+    }
+
+    void SpawnPowerUp()
+    {
+        if(currentPowerUpCount >= maxPowerUpCount)
+        {
+            return;
+        }
+        currentPowerUpCount++;
+        GameObject go = Instantiate(powerUp, spawnsParent);
+        PowerUp pu = go.GetComponent<PowerUp>();
+        pu.type = (Type)Random.Range(0, System.Enum.GetValues(typeof(Type)).Length);
+        pu.Initialize();
+        AddForces(go);
         MoveToCircle(go);
     }
 

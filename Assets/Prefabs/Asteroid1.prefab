@@ -85,6 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMass: 200
   minMass: 50
+  collisionParticles: {fileID: 5913665146559866860, guid: 7ae776c40db9bfa429873bd897e88f1d, type: 3}
 --- !u!1 &5682444433184791387
 GameObject:
   m_ObjectHideFlags: 0

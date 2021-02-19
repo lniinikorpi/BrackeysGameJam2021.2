@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMass: 200
   minMass: 50
+  collisionParticles: {fileID: 5913665146559866860, guid: 7ae776c40db9bfa429873bd897e88f1d, type: 3}
 --- !u!60 &8996290657189313243
 PolygonCollider2D:
   m_ObjectHideFlags: 0
