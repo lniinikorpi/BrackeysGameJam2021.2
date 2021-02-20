@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public bool isShieldActive;
     float _shieldTimer;
     float _shieldMaxTime;
-    public Camera camera;
+    public Camera mainCamera;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        GameManager.instance.isPlayerAlive = true;
         GameManager.instance.score = 0;
         _currentHealth = maxHealth;
         UIManagerGame.instance.UpdateHealthSlider(1);
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
         }
         if(GameManager.instance.isPlayerAlive)
         {
-            camera.transform.position = new Vector3(transform.position.x, transform.position.y, camera.transform.position.z);
+            mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, mainCamera.transform.position.z);
         }
         float fps = 1.0f / Time.deltaTime;
         //print(fps);

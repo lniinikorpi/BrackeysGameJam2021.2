@@ -13096,7 +13096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45240f2afd366954186ded0098f32c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 100
   humansCollected: 0
   gravityPerHuman: 0.5
   anim: {fileID: 897880568}
@@ -13109,7 +13109,7 @@ MonoBehaviour:
   shield: {fileID: 242837475}
   dieParticles: {fileID: 3097754478822253464, guid: 3516b728113a3e448b63db21bc82d3fd, type: 3}
   isShieldActive: 0
-  camera: {fileID: 519420031}
+  mainCamera: {fileID: 519420031}
 --- !u!82 &897880570
 AudioSource:
   m_ObjectHideFlags: 0
