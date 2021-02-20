@@ -26,7 +26,6 @@ public class Spawner : MonoBehaviour
     public GameObject player;
     public Transform spawnsParent;
     public Transform starsParent;
-    public bool isPlayerAlive = true;
     float _canSpawn;
 
     private void Awake()
@@ -84,7 +83,7 @@ public class Spawner : MonoBehaviour
         float randomAngle = Random.Range(0f, Mathf.PI * 2f);
         Vector2 pos = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized;
         pos *= Random.Range(minDistance, maxDistance + 1);
-        if (isPlayerAlive)
+        if (GameManager.instance.isPlayerAlive)
         {
             pos += (Vector2)player.transform.position; 
         }

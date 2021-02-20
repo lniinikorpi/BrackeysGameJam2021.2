@@ -10,11 +10,11 @@ public class SpawnableBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player == null && Spawner.instance.isPlayerAlive)
+        if(player == null && GameManager.instance.isPlayerAlive)
         {
             player = Spawner.instance.player.GetComponent<Player>();
         }
-        if (Spawner.instance.isPlayerAlive)
+        if (GameManager.instance.isPlayerAlive)
         {
             if (Vector2.Distance(transform.position, player.gameObject.transform.position) > Spawner.instance.maxDistance)
             {

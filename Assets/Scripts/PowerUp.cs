@@ -15,7 +15,7 @@ public class PowerUp : MonoBehaviour
     public float shieldTime;
     private void Update()
     {
-        if (Spawner.instance.isPlayerAlive)
+        if (GameManager.instance.isPlayerAlive)
         {
             if (Vector2.Distance(transform.position, Spawner.instance.player.transform.position) > Spawner.instance.maxDistance)
             {

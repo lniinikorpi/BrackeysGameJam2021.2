@@ -8,27 +8,17 @@ public class UIManager : MonoBehaviour
 {
     public Button soundOnButton;
     public Button soundOffButton;
-    // Start is called before the first frame update
+    public AudioSource audioSource;
 
-    private void Awake()
+    private void Start()
     {
-        soundOnButton.gameObject.SetActive(true);
-        soundOffButton.gameObject.SetActive(false);
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        soundOnButton.gameObject.SetActive(!GameManager.instance.isMuted);
+        soundOffButton.gameObject.SetActive(GameManager.instance.isMuted);
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
@@ -45,8 +35,21 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMute()
     {
-        SoundManager.instance.isMuted = !SoundManager.instance.isMuted;
-        soundOffButton.gameObject.SetActive(SoundManager.instance.isMuted);
-        soundOnButton.gameObject.SetActive(!SoundManager.instance.isMuted);
+        GameManager.instance.isMuted = !GameManager.instance.isMuted;
+        soundOffButton.gameObject.SetActive(GameManager.instance.isMuted);
+        soundOnButton.gameObject.SetActive(!GameManager.instance.isMuted);
+        if (GameManager.instance.isMuted)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioListener.volume = 1;
+        }
+    }
+
+    public void PlaySound()
+    {
+        audioSource.Play();
     }
 }

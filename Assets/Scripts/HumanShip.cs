@@ -21,6 +21,10 @@ public class HumanShip : SpawnableBase
             player.TakeHumans(_humanCount);
             GameObject go = Instantiate(collisionParticles);
             go.transform.position = collision.GetContact(0).point;
+            go = Instantiate(UIManagerGame.instance.floatText);
+            go.transform.position = collision.GetContact(0).point;
+            FloatTextObject f = go.GetComponent<FloatTextObject>();
+            f.Initialize(_humanCount, Color.yellow);
             DestroyObject();
         }
     }

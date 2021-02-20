@@ -24,9 +24,17 @@ public class Asteroid : SpawnableBase
     {
         if(collision.collider.CompareTag("Player"))
         {
-            player.TakeHit((int)_rb.mass/10);
+            int damage = (int)_rb.mass / 10;
+            player.TakeHit(damage);
             GameObject go = Instantiate(collisionParticles);
             go.transform.position = collision.GetContact(0).point;
+            if (!Spawner.instance.player.GetComponent<Player>().isShieldActive)
+            {
+                go = Instantiate(UIManagerGame.instance.floatText);
+                go.transform.position = collision.GetContact(0).point;
+                FloatTextObject f = go.GetComponent<FloatTextObject>();
+                f.Initialize(-damage, Color.red); 
+            }
             DestroyObject();
         }
     }

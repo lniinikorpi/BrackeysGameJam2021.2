@@ -9,15 +9,20 @@ public class Player : MonoBehaviour
     public float gravityPerHuman = .5f;
     public Animator anim;
     public AudioSource audioSource;
+    public AudioSource shieldAudioSource;
     public AudioClip hitClip;
     public AudioClip humanHitClip;
+    public AudioClip shieldOnClip;
+    public AudioClip shieldOffClip;
     public GameObject shield;
+    public GameObject dieParticles;
     int _currentHealth;
     Rigidbody2D _rb;
     PointEffector2D _pointEffector2D;
     public bool isShieldActive;
     float _shieldTimer;
     float _shieldMaxTime;
+    public Camera camera;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,8 +33,17 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        GameManager.instance.score = 0;
         _currentHealth = maxHealth;
         UIManagerGame.instance.UpdateHealthSlider(1);
+        if(!GameManager.instance.isMuted)
+        {
+            AudioListener.volume = 1;
+        }
+        else
+        {
+            AudioListener.volume = 0;
+        }
     }
 
     // Update is called once per frame
@@ -38,6 +52,10 @@ public class Player : MonoBehaviour
         if(isShieldActive)
         {
             ReduceShield();
+        }
+        if(GameManager.instance.isPlayerAlive)
+        {
+            camera.transform.position = new Vector3(transform.position.x, transform.position.y, camera.transform.position.z);
         }
         float fps = 1.0f / Time.deltaTime;
         //print(fps);
@@ -55,12 +73,19 @@ public class Player : MonoBehaviour
         UIManagerGame.instance.UpdateHealthSlider((float)_currentHealth / (float)maxHealth);
         if(_currentHealth <= 0)
         {
-            _currentHealth = 0;
-            print("Game over");
-            Spawner.instance.isPlayerAlive = false;
-            Destroy(gameObject);
+            Die();
         }
         print("oof " + _currentHealth);
+    }
+
+    private void Die()
+    {
+        _currentHealth = 0;
+        print("Game over");
+        GameManager.instance.isPlayerAlive = false;
+        Instantiate(dieParticles);
+        UIManagerGame.instance.EndGame();
+        Destroy(gameObject);
     }
 
     public void TakeHumans(int value)
@@ -68,6 +93,14 @@ public class Player : MonoBehaviour
         audioSource.clip = humanHitClip;
         audioSource.Play();
         humansCollected += value;
+        _currentHealth += value / 10;
+        GameManager.instance.score = humansCollected;
+        UIManagerGame.instance.UpdateScoreText(humansCollected);
+        if(_currentHealth > maxHealth)
+        {
+            _currentHealth = maxHealth;
+        }
+        UIManagerGame.instance.UpdateHealthSlider((float)_currentHealth / (float)maxHealth);
         _pointEffector2D.forceMagnitude -= gravityPerHuman * value;
         print("yay");
     }
@@ -89,6 +122,11 @@ public class Player : MonoBehaviour
     {
         if(!isShieldActive)
         {
+            audioSource.clip = shieldOnClip;
+            audioSource.Play();
+        }
+        if(!isShieldActive)
+        {
             anim.SetBool("ShieldOn", true);
         }
         _shieldMaxTime = pu.shieldTime;
@@ -106,6 +144,8 @@ public class Player : MonoBehaviour
             isShieldActive = false;
             anim.SetBool("ShieldOn", false);
             shield.GetComponent<CircleCollider2D>().enabled = false;
+            audioSource.clip = shieldOffClip;
+            audioSource.Play();
         }
         float percentage = _shieldTimer / _shieldMaxTime;
         UIManagerGame.instance.UpdateShieldSlider(percentage);
