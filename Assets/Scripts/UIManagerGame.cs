@@ -7,6 +7,7 @@ public class UIManagerGame : MonoBehaviour
 {
     public static UIManagerGame instance = null;
     public Slider shieldSlider;
+    public Slider healthSlider;
     private void Awake()
     {
         if(instance == null)
@@ -33,15 +34,21 @@ public class UIManagerGame : MonoBehaviour
 
     public void UpdateShieldSlider(float value)
     {
-        Image image = shieldSlider.GetComponentsInChildren<Image>()[1];
         shieldSlider.value = value;
-        if(shieldSlider.value > .5f)
+    }
+
+    public void UpdateHealthSlider(float value)
+    {
+        print(value);
+        Image image = healthSlider.GetComponentsInChildren<Image>()[1];
+        healthSlider.value = value;
+        if (healthSlider.value > .5f)
         {
-            image.color = new Color(2-2*value, 1, 0);
+            image.color = new Color(2 - 2 * value, 1, 0);
         }
-        else if(shieldSlider.value <= .5f)
+        else if (healthSlider.value <= .5f)
         {
-            image.color = new Color(1, (2*value), 0);
+            image.color = new Color(1, (2 * value), 0);
         }
     }
 }

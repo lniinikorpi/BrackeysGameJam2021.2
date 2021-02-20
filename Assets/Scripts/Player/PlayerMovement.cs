@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject mainMotorFire;
     public GameObject rightMotorFire;
     public GameObject leftMotorFire;
+    public AudioSource mainMotorAudio;
+    public AudioSource rightMotorAudio;
+    public AudioSource leftMotorAudio;
     [Header("Stats")]
     public float speed = 10;
     public float turnSpeed = 10;
@@ -46,21 +49,25 @@ public class PlayerMovement : MonoBehaviour
         {
             mainMotorParticles.Play();
             mainMotorFire.SetActive(true);
+            mainMotorAudio.enabled = true;
         }
         else
         {
             mainMotorParticles.Stop();
             mainMotorFire.SetActive(false);
+            mainMotorAudio.enabled = false;
         }
         if(_movement.x > 0)
         {
             leftMotorParticles.Play();
             leftMotorFire.SetActive(true);
+            leftMotorAudio.enabled = true;
         }
         else if(_movement.x < 0)
         {
             rightMotorParticles.Play();
             rightMotorFire.SetActive(true);
+            rightMotorAudio.enabled = true;
         }
         else
         {
@@ -68,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
             rightMotorParticles.Stop();
             rightMotorFire.SetActive(false);
             leftMotorFire.SetActive(false);
+            rightMotorAudio.enabled = false;
+            leftMotorAudio.enabled = false;
         }
     }
 

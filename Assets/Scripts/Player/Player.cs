@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _currentHealth = maxHealth;
+        UIManagerGame.instance.UpdateHealthSlider(1);
     }
 
     // Update is called once per frame
@@ -38,9 +39,8 @@ public class Player : MonoBehaviour
         {
             ReduceShield();
         }
-        float msec = Time.deltaTime * 1000.0f;
         float fps = 1.0f / Time.deltaTime;
-        print(fps);
+        //print(fps);
     }
 
     public void TakeHit(int value)
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
             return;
         }
         _currentHealth -= value;
+        UIManagerGame.instance.UpdateHealthSlider((float)_currentHealth / (float)maxHealth);
         if(_currentHealth <= 0)
         {
             _currentHealth = 0;
