@@ -28,20 +28,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(File.Exists(path))
+        data = new ScoreData(0);
+#if !UNITY_WEBGL
+        if (File.Exists(path))
         {
             data = SaveSystem.LoadData();
         }
         else
         {
-            data = new ScoreData(0);
             SaveSystem.SaveScore();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+#endif
     }
 }

@@ -85,8 +85,8 @@ public class Player : MonoBehaviour
         _currentHealth = 0;
         print("Game over");
         GameManager.instance.isPlayerAlive = false;
-        Instantiate(dieParticles);
-        UIManagerGame.instance.EndGame();
+        GameObject go = Instantiate(dieParticles);
+        go.transform.position = transform.position;
         Destroy(gameObject);
     }
 
