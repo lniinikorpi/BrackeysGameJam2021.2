@@ -13,8 +13,10 @@ public class UIManagerGame : MonoBehaviour
     public GameObject pausePanel;
     public GameObject endPanel;
     public AudioSource audioSource;
+    public TMP_Text gravityText;
     public TMP_Text scoreText;
     public TMP_Text endScoreText;
+    public TMP_Text highScoreText;
     public Animator anim;
     public GameObject floatText;
     private void Awake()
@@ -90,6 +92,12 @@ public class UIManagerGame : MonoBehaviour
     {
         endPanel.SetActive(true);
         endScoreText.text = scoreText.text;
+        if(GameManager.instance.score > GameManager.instance.data.highScore)
+        {
+            GameManager.instance.data.highScore = GameManager.instance.score;
+            SaveSystem.SaveScore();
+        }
+        highScoreText.text = GameManager.instance.data.highScore.ToString();
     }
 
     public void UpdateScoreText(int value)
@@ -101,5 +109,10 @@ public class UIManagerGame : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void UpdateGravityText(int value)
+    {
+        gravityText.text = value.ToString();
     }
 }

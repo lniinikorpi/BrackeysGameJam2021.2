@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         GameManager.instance.score = 0;
         _currentHealth = maxHealth;
         UIManagerGame.instance.UpdateHealthSlider(1);
+        UIManagerGame.instance.UpdateGravityText(Mathf.Abs((int)_pointEffector2D.forceMagnitude));
         if(!GameManager.instance.isMuted)
         {
             AudioListener.volume = 1;
@@ -102,7 +103,8 @@ public class Player : MonoBehaviour
             _currentHealth = maxHealth;
         }
         UIManagerGame.instance.UpdateHealthSlider((float)_currentHealth / (float)maxHealth);
-        _pointEffector2D.forceMagnitude -= gravityPerHuman * value;
+        _pointEffector2D.forceMagnitude -= (gravityPerHuman + Random.Range(-.15f,.15f)) * value;
+        UIManagerGame.instance.UpdateGravityText((int)Mathf.Abs(_pointEffector2D.forceMagnitude));
         print("yay");
     }
 
