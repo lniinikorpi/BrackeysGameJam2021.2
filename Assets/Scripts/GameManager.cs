@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         data = new ScoreData(0);
-#if !UNITY_WEBGL
         if (File.Exists(path))
         {
             data = SaveSystem.LoadData();
@@ -38,6 +37,5 @@ public class GameManager : MonoBehaviour
         {
             SaveSystem.SaveScore();
         }
-#endif
     }
 }

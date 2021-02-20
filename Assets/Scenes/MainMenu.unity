@@ -2132,7 +2132,7 @@ MonoBehaviour:
 
 
     Collect planets      to increase your
-    planets population  . The more your planet''s population is the stronger the
+    planet''s population  . The more your planet''s population is the stronger the
     gravity      is. Watch out for asteroids       and collect  protection stones      
     to get temporary shield.'
   m_isRightToLeft: 0
@@ -2208,7 +2208,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1687172501}
-    characterCount: 247
+    characterCount: 248
     spriteCount: 0
     spaceCount: 61
     wordCount: 35

@@ -93,13 +93,11 @@ public class UIManagerGame : MonoBehaviour
     {
         endPanel.SetActive(true);
         endScoreText.text = scoreText.text;
-#if !UNITY_WEBGL
         if(GameManager.instance.score > GameManager.instance.data.highScore)
         {
             GameManager.instance.data.highScore = GameManager.instance.score;
             SaveSystem.SaveScore();
         }
-#endif
         highScoreText.text = GameManager.instance.data.highScore.ToString();
     }
 
