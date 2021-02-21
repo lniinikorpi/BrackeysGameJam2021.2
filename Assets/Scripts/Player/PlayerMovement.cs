@@ -38,9 +38,9 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    public void OnMove(InputValue value)
+    public void OnMove(Vector2 _movement)
     {
-        _movement = value.Get<Vector2>();
+        this._movement = _movement;
         if(_movement.y < 0)
         {
             _movement = new Vector2(_movement.x, 0);
@@ -84,5 +84,34 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.AddForce(transform.up * speed * _movement.y);
         _rb.AddTorque(turnSpeed * -_movement.x);
+    }
+
+    public void StartTurnLeft()
+    {
+        OnMove(new Vector2(-1, _movement.y));
+    }
+
+    public void StartTurnRight()
+    {
+        OnMove(new Vector2(1, _movement.y));
+    }
+
+    public void StartThrottle()
+    {
+        OnMove(new Vector2(_movement.x, 1));
+    }
+    public void EndTurnLeft()
+    {
+        OnMove(new Vector2(0, _movement.y));
+    }
+
+    public void EndTurnRight()
+    {
+        OnMove(new Vector2(0, _movement.y));
+    }
+
+    public void EndThrottle()
+    {
+        OnMove(new Vector2(_movement.x, 0));
     }
 }

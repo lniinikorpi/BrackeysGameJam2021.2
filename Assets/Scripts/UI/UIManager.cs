@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour
 #if UNITY_STANDALONE_WIN
         Application.Quit();
 #endif
+#if UNITY_ANDROID
+        Application.Quit();
+#endif
 #if UNITY_WEB
 #endif
     }
