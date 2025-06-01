@@ -1,0 +1,5 @@
+F:/Projects/Unity/Planetvasion/.utmp/RelWithDebInfo/4h192t1i/arm64-v8a/CMakeFiles/edit_cache.dir
+F:/Projects/Unity/Planetvasion/.utmp/RelWithDebInfo/4h192t1i/arm64-v8a/CMakeFiles/rebuild_cache.dir
+F:/Projects/Unity/Planetvasion/.utmp/RelWithDebInfo/4h192t1i/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+F:/Projects/Unity/Planetvasion/.utmp/RelWithDebInfo/4h192t1i/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+F:/Projects/Unity/Planetvasion/.utmp/RelWithDebInfo/4h192t1i/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
